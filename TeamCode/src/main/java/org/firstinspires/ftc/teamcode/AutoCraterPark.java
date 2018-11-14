@@ -28,7 +28,7 @@ public class AutoCraterPark extends LinearOpMode{
 
         waitForStart();
 
-        hardware.EncooderReseeter(this);
+
 
         //lift goes down
         /*hardware.LeftSlideMotor.setPower(.5);
@@ -94,16 +94,17 @@ public class AutoCraterPark extends LinearOpMode{
         hardware.waitBlock(this);
         hardware.MotorStop(this);
         hardware.EncooderReseeter(this);*/
-        hardware.strafeMotor.setPower(-1.0);
-        sleep(1000);
-        hardware.strafeMotor.setPower(0);
-        sleep(50);
+        hardware.EncooderReseeter(this);
+        hardware.Strafe(-3000, -0.5);
+        hardware.waitBlockStrafe(this);
+        hardware.StrafeStop();
 
         hardware.EncooderReseeter(this);
         hardware.Turn(300, 0.5);
         hardware.waitBlock(this);
         hardware.MotorStop(this);
 
+        hardware.EncooderReseeter(this);
         hardware.GoStraight(-3000, -1.0);
         hardware.waitBlock(this);
         hardware.MotorStop(this);

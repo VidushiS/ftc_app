@@ -13,14 +13,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class HardWareInit{
 
-    DcMotor leftMotor, rightMotor, strafeMotor, LeftSlideMotor, IntakeMotor, FlipMotor;
+    DcMotor leftMotor, rightMotor, strafeMotor, liftMotor, IntakeMotor, FlipMotor;
     Servo ColorSensor1, ColorSensor2, IDCServo;
 
     public void initHardware(LinearOpMode op) {
         leftMotor = op.hardwareMap.dcMotor.get("leftMotor");
         rightMotor = op.hardwareMap.dcMotor.get("rightMotor");
         strafeMotor = op.hardwareMap.dcMotor.get("SpecialBoy");
-        //  LeftSlideMotor = op.hardwareMap.dcMotor.get("LeftSlideMotor");
+          liftMotor = op.hardwareMap.dcMotor.get("liftMotor");
         //  IDCServo = op.hardwareMap.servo.get("IdontGiveACrap");
         // RightSlideMotor = op.hardwareMap.dcMotor.get("RightSlideMotor");
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
