@@ -102,18 +102,18 @@ public class Official2018TeleOp extends LinearOpMode{
             }*/
 
             //Check to see if you can run the statements below as threads
-          /*  while (gamepad1.dpad_up == true && gamepad1.dpad_down == false){
-                init.LeftSlideMotor.setPower(0.7);
-                init.RightSlideMotor.setPower(0.7);
+            if (gamepad1.dpad_up == true && gamepad1.dpad_down == false){
+                init.liftMotor.setPower(0.7);
+
             }
-            while (gamepad1.dpad_down == true && gamepad1.dpad_down == false){
-                init.LeftSlideMotor.setPower(-0.7);
-                init.RightSlideMotor.setPower(-0.7);
+            if (gamepad1.dpad_down == true && gamepad1.dpad_down == false){
+                init.liftMotor.setPower(-0.7);
+
             }
             if(gamepad1.dpad_down == false && gamepad1.dpad_up == false){
-                init.LeftSlideMotor.setPower(0.0);
-                init.RightSlideMotor.setPower(0.0);
-            }*/
+                init.liftMotor.setPower(0.0);
+
+            }
 
 
 
