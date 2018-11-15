@@ -103,11 +103,13 @@ public class Official2018TeleOp extends LinearOpMode{
 
             //Check to see if you can run the statements below as threads
             if (gamepad1.dpad_up == true && gamepad1.dpad_down == false){
-                init.liftMotor.setPower(0.7);
+                init.liftMotor.setPower(-0.7);
+                idle();
 
             }
-            if (gamepad1.dpad_down == true && gamepad1.dpad_down == false){
-                init.liftMotor.setPower(-0.7);
+            if (gamepad1.dpad_down == true && gamepad1.dpad_up == false){
+                init.liftMotor.setPower(0.7);
+                idle();
 
             }
             if(gamepad1.dpad_down == false && gamepad1.dpad_up == false){
