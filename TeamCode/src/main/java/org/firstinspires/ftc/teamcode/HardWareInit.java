@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class HardWareInit{
 
     DcMotor leftMotor, rightMotor, strafeMotor, liftMotor, IntakeMotor, FlipMotor;
-    Servo ColorSensor1, ColorSensor2, IDCServo;
+    Servo IDCServo;
 
     public void initHardware(LinearOpMode op) {
         leftMotor = op.hardwareMap.dcMotor.get("leftMotor");
@@ -31,11 +31,6 @@ public class HardWareInit{
         */
         /*FlipMotor = op.hardwareMap.dcMotor.get("FlipMotor");
 
-
-
-
-        ColorSensor1 = op.hardwareMap.servo.get("ColorSensor1");
-        ColorSensor2 = op.hardwareMap.servo.get("ColorSensor2");
         DumpServo = op.hardwareMap.servo.get("DumpServo");*/
     }
     public void waitBlock(LinearOpMode op){
