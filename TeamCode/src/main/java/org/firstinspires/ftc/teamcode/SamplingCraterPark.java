@@ -35,6 +35,7 @@ public class SamplingCraterPark extends LinearOpMode {
 
         hardware.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hardware.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hardware.strafeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         initVuforia();
 
@@ -50,6 +51,15 @@ public class SamplingCraterPark extends LinearOpMode {
 
         waitForStart();
 
+        hardware.liftMotor.setPower(-0.7);
+
+        //Will double check later on. Depends on where the hook is attached.
+        hardware.EncooderReseeter(this);
+        hardware.GoStraight(-300, -1.0);
+        hardware.waitBlock(this);
+        hardware.MotorStop(this);
+        hardware.EncooderReseeter(this);
+
         if (opModeIsActive()) {
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
@@ -60,10 +70,11 @@ public class SamplingCraterPark extends LinearOpMode {
         if (tfod != null) {
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
+            sleep(300);
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
                 telemetry.addData("# Object Detected", updatedRecognitions.size());
-                if (updatedRecognitions.size() == 3) {
+                if (updatedRecognitions.size() == 2) {
                     int goldMineralX = -1;
                     int silverMineral1X = -1;
                     int silverMineral2X = -1;
@@ -76,18 +87,31 @@ public class SamplingCraterPark extends LinearOpMode {
                             silverMineral2X = (int) recognition.getLeft();
                         }
                     }
-                    if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
-                        if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
+                    if (goldMineralX != -1 || silverMineral1X != -1 || silverMineral2X != -1) {
+                        if ((goldMineralX < silverMineral1X) || (goldMineralX < silverMineral2X)) {
                             telemetry.addData("Gold Mineral Position", "Left");
-                        } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                            telemetry.addData("Gold Mineral Position", "Right");
-                        } else {
+                            hardware.EncooderReseeter(this);
+
+                            hardware.GoStraight(-300, -1.0);
+                            hardware.waitBlock(this);
+                            hardware.MotorStop(this);
+                            hardware.EncooderReseeter(this);
+                            hardware.EncooderReseeter(this);
+                            hardware.Strafe(-3000, -0.5);
+                            hardware.waitBlockStrafe(this);
+                            hardware.StrafeStop();
+                        } else if ((goldMineralX > silverMineral1X) || (goldMineralX > silverMineral2X)) {
                             telemetry.addData("Gold Mineral Position", "Center");
+                        } else {
+                            telemetry.addData("Gold Mineral Position", "Right");
                         }
                     }
                 }
                 telemetry.update();
             }
+        }
+        if (tfod != null) {
+            tfod.shutdown();
         }
 
     }

@@ -44,11 +44,13 @@ public class HardWareInit{
     public void EncooderReseeter(LinearOpMode op){
         this.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.strafeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         op.sleep(500);
 
         this.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         this.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.strafeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void MotorStop(LinearOpMode op){

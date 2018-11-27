@@ -22,7 +22,7 @@ public class AutoCraterPark extends LinearOpMode{
 
         hardware.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hardware.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
+        hardware.strafeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.addData("Mode", "waiting");
         telemetry.update();
 
