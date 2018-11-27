@@ -51,29 +51,33 @@ public class SamplingCraterPark extends LinearOpMode {
 
         waitForStart();
 
-        hardware.liftMotor.setPower(-0.7);
+     //   hardware.liftMotor.setPower(-0.7);
 
         //Will double check later on. Depends on where the hook is attached.
-        hardware.EncooderReseeter(this);
-        hardware.GoStraight(-300, -1.0);
-        hardware.waitBlock(this);
-        hardware.MotorStop(this);
-        hardware.EncooderReseeter(this);
+//        hardware.EncooderReseeter(this);
+//        hardware.GoStraight(-300, -1.0);
+//        hardware.waitBlock(this);
+//        hardware.MotorStop(this);
+//        hardware.EncooderReseeter(this);
 
-        if (opModeIsActive()) {
+
             /** Activate Tensor Flow Object Detection. */
             if (tfod != null) {
                 tfod.activate();
             }
-        }
+
 
         if (tfod != null) {
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
-            sleep(300);
+            sleep(7000);
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+
             if (updatedRecognitions != null) {
                 telemetry.addData("# Object Detected", updatedRecognitions.size());
+
+                telemetry.update();
+                sleep(5000);
                 if (updatedRecognitions.size() == 2) {
                     int goldMineralX = -1;
                     int silverMineral1X = -1;
@@ -88,22 +92,31 @@ public class SamplingCraterPark extends LinearOpMode {
                         }
                     }
                     if (goldMineralX != -1 || silverMineral1X != -1 || silverMineral2X != -1) {
-                        if ((goldMineralX < silverMineral1X) || (goldMineralX < silverMineral2X)) {
+                        if (goldMineralX != -1 && ((goldMineralX < silverMineral1X) || (goldMineralX < silverMineral2X))) {
                             telemetry.addData("Gold Mineral Position", "Left");
-                            hardware.EncooderReseeter(this);
-
-                            hardware.GoStraight(-300, -1.0);
-                            hardware.waitBlock(this);
-                            hardware.MotorStop(this);
-                            hardware.EncooderReseeter(this);
-                            hardware.EncooderReseeter(this);
-                            hardware.Strafe(-3000, -0.5);
-                            hardware.waitBlockStrafe(this);
-                            hardware.StrafeStop();
-                        } else if ((goldMineralX > silverMineral1X) || (goldMineralX > silverMineral2X)) {
+//                            hardware.EncooderReseeter(this);
+//
+//                            hardware.GoStraight(-300, -1.0);
+//                            hardware.waitBlock(this);
+//                            hardware.MotorStop(this);
+//                            hardware.EncooderReseeter(this);
+//                            hardware.EncooderReseeter(this);
+//                            hardware.Strafe(-3000, -0.5);
+//                            hardware.waitBlockStrafe(this);
+//                            hardware.StrafeStop();
+                            telemetry.addData("Move", "Towards the Left Gold Mineral");
+                            telemetry.update();
+                            sleep(3000);
+                        } else if (goldMineralX != -1 && ((goldMineralX > silverMineral1X) || (goldMineralX > silverMineral2X))) {
                             telemetry.addData("Gold Mineral Position", "Center");
+                            telemetry.addData("Move", "Towards the Gold Mineral in the center, get it soon!");
+                            telemetry.update();
+                            sleep(3000);
                         } else {
                             telemetry.addData("Gold Mineral Position", "Right");
+                            telemetry.addData("Move", "Towards the Gold Mineral on the right. Purple Unicorns!");
+                            telemetry.update();
+                            sleep(3000);
                         }
                     }
                 }
