@@ -12,11 +12,12 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.List;
 
+@Autonomous(name = "SamplingDepot", group = "Exercises")
 /**
- * Created by singh on 11/19/2018.
+ * Created by singh on 12/7/2018.
  */
-@Autonomous(name = "SamplingCraterPark", group = "Exercises")
-public class SamplingCraterPark extends LinearOpMode {
+
+public class SampleDepot extends LinearOpMode{
 
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -31,6 +32,7 @@ public class SamplingCraterPark extends LinearOpMode {
 
     @Override
     public void runOpMode(){
+
         hardware.initHardware(this);
         hardware.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hardware.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -74,10 +76,10 @@ public class SamplingCraterPark extends LinearOpMode {
         hardware.EncooderReseeter(this);
 
 
-            /** Activate Tensor Flow Object Detection. */
-            if (tfod != null) {
-                tfod.activate();
-            }
+        /** Activate Tensor Flow Object Detection. */
+        if (tfod != null) {
+            tfod.activate();
+        }
 
 
         if (tfod != null) {
@@ -110,11 +112,7 @@ public class SamplingCraterPark extends LinearOpMode {
                             telemetry.update();
                             sleep(100);
 
-//                            hardware.leftMotor.setPower(0.5);
-//                            hardware.rightMotor.setPower(-0.5);
-//                            sleep(300);
-//                            hardware.leftMotor.setPower(0);
-//                            hardware.rightMotor.setPower(0);
+//
 
 
 
@@ -126,11 +124,7 @@ public class SamplingCraterPark extends LinearOpMode {
 
                             //Go straight and knock down the mineral and park in the crater
 
-//                            hardware.leftMotor.setPower(-0.5);
-//                            hardware.rightMotor.setPower(-0.5);
-//                            sleep(4000);
-//                            hardware.leftMotor.setPower(0);
-//                            hardware.rightMotor.setPower(0);
+//
 
                             hardware.EncooderReseeter(this);
                             hardware.GoStraight(-3000, -1.0);
@@ -145,11 +139,7 @@ public class SamplingCraterPark extends LinearOpMode {
                             telemetry.update();
                             sleep(300);
 
-//                            hardware.leftMotor.setPower(-0.5);
-//                            hardware.rightMotor.setPower(0.5);
-//                            sleep(130);
-//                            hardware.leftMotor.setPower(0);
-//                            hardware.rightMotor.setPower(0);
+
                             hardware.EncooderReseeter(this);
                             hardware.Turn(-45, -.7);
                             hardware.waitBlock(this);
@@ -157,11 +147,7 @@ public class SamplingCraterPark extends LinearOpMode {
 
 
 
-//                            hardware.leftMotor.setPower(-0.5);
-//                            hardware.rightMotor.setPower(-0.5);
-//                            sleep(4000);
-//                            hardware.leftMotor.setPower(0);
-//                            hardware.rightMotor.setPower(0);
+
 
                             hardware.EncooderReseeter(this);
                             hardware.GoStraight(-3000, -1.0);
@@ -177,21 +163,13 @@ public class SamplingCraterPark extends LinearOpMode {
                             telemetry.update();
                             sleep(300);
 
-//                            hardware.leftMotor.setPower(-0.5);
-//                            hardware.rightMotor.setPower(0.5);
-//                            sleep(400);
-//                            hardware.leftMotor.setPower(0);
-//                            hardware.rightMotor.setPower(0);
+
                             hardware.EncooderReseeter(this);
                             hardware.Turn(-205, -.7);
                             hardware.waitBlock(this);
                             hardware.MotorStop(this);
 
-//                            hardware.leftMotor.setPower(-0.5);
-//                            hardware.rightMotor.setPower(-0.5);
-//                            sleep(4000);
-//                            hardware.leftMotor.setPower(0);
-//                            hardware.rightMotor.setPower(0);
+
 
                             hardware.EncooderReseeter(this);
                             hardware.GoStraight(-3000, -1.0);
@@ -212,6 +190,8 @@ public class SamplingCraterPark extends LinearOpMode {
         if (tfod != null) {
             tfod.shutdown();
         }
+
+        hardware.IDCServo.setPosition(0.3);
 
     }
     private void initVuforia() {

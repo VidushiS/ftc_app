@@ -17,8 +17,11 @@ public class Official2018TeleOp extends LinearOpMode{
     @Override
     public void runOpMode(){
         init.initHardware(this);
+        init.leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        init.rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         init.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         init.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        init.liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Mode", "Waiting");
         telemetry.update();
@@ -35,94 +38,56 @@ public class Official2018TeleOp extends LinearOpMode{
 
             if(gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0){
                 init.strafeMotor.setPower(strafeRight);
-                idle();
+
             }
             else if(gamepad1.left_trigger > 0 && gamepad1.right_trigger == 0 ){
                 init.strafeMotor.setPower(-strafeY);
-                idle();
+
             }
             else init.strafeMotor.setPower(0);
-            idle();
+
 
             init.leftMotor.setPower(leftY);
             init.rightMotor.setPower(rightY);
 
-            /*if(gamepad.x2(gamepad2.x) == 3){
-                init.LeftSlideMotor.setPower(.5);
-                init.RightSlideMotor.setPower(.5);
-                idle();
-            }
-            else if(gamepad.x2(gamepad2.x) == 2){
-                init.LeftSlideMotor.setPower(-.5);
-                init.RightSlideMotor.setPower(-.5);
-                idle();
-            }
-            else if(gamepad.x2(gamepad2.x) == 1){
-                init.LeftSlideMotor.setPower(0);
-                init.RightSlideMotor.setPower(0);
-                idle();
-            }*/
-
-        /*    if(gamepad1.dpad_down){
-                init.LeftSlideMotor.setPower(-.5);
-                telemetry.addData("Motor speed", init.LeftSlideMotor.getPower());
-                telemetry.update();
-                idle();
-            }
-            else if(gamepad1.dpad_up){
-                init.LeftSlideMotor.setPower(.5);
-
-                telemetry.addData("Motor speed", init.LeftSlideMotor.getPower());
-                telemetry.update();
-                idle();
-            }
-            else if( !gamepad1.dpad_up && !gamepad1.dpad_down){
-                init.LeftSlideMotor.setPower(.0);
-
-                telemetry.addData("Motor speed", init.LeftSlideMotor.getPower());
-                telemetry.update();
-                idle();
-            }
-/*
-            if(gamepad.b(gamepad2.b)){
-                init.IntakeMotor.setPower(.5);
-                idle();
-            }
-            else if(!gamepad.b(gamepad2.b)){
-                init.IntakeMotor.setPower(.0);
-                idle();
-            }
-            if(gamepad.a(gamepad2.a)){
-                init.IntakeMotor.setPower(-.5);
-                idle();
-            }
-            else if(!gamepad.a(gamepad2.a)){
-                init.IntakeMotor.setPower(0);
-                idle();
-            }*/
 
             //Check to see if you can run the statements below as threads
-            if (gamepad1.dpad_up == true && gamepad1.dpad_down == false){
-                init.liftMotor.setPower(-0.7);
-                idle();
-
-            }
-            if (gamepad1.dpad_down == true && gamepad1.dpad_up == false){
+            if (gamepad1.dpad_up && !gamepad1.dpad_down){
                 init.liftMotor.setPower(0.7);
-                idle();
-
             }
-            if(gamepad1.dpad_down == false && gamepad1.dpad_up == false){
+            if (gamepad1.dpad_down  && !gamepad1.dpad_up){
+                init.liftMotor.setPower(-0.7);
+            }
+            if(!gamepad1.dpad_down && !gamepad1.dpad_up){
                 init.liftMotor.setPower(0.0);
-
             }
 
+            if(gamepad2.b && !gamepad2.a){
+                init.IntakeBoy.setPower(0.5);
+            }
+            if(gamepad2.a && !gamepad2.b){
+                init.IntakeBoy.setPower(-0.5);
+            }
+            if(!gamepad2.a && !gamepad2.b){
+                init.IntakeBoy.setPower(0);
+            }
+
+            if (gamepad2.dpad_up && !gamepad2.dpad_down){
+                init.intakeMotor.setPower(0.7);
+            }
+            if (gamepad2.dpad_down  && !gamepad2.dpad_up){
+                init.intakeMotor.setPower(-0.7);
+            }
+            if(!gamepad2.dpad_down && !gamepad2.dpad_up){
+                init.intakeMotor.setPower(0.0);
+            }
 
 
 
             idle();
         }
-
+//        init.leftMotor.setPower(0);
+//        init.rightMotor.setPower(0);
 
     }
 }

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@Autonomous(name = "CraterPark", group = "Exercises")
+@Autonomous(name = "MarkerScore", group = "Exercises")
 
 /**
  * Created by singh on 10/17/2018.
@@ -16,17 +16,29 @@ public class AutoCraterPark extends LinearOpMode{
 
     HardWareInit hardware = new HardWareInit();
 
+
+
     @Override
     public void runOpMode(){
         hardware.initHardware(this);
 
-        hardware.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        hardware.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        hardware.strafeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+      //  hardware.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hardware.leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        hardware.rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  hardware.strafeMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.addData("Mode", "waiting");
         telemetry.update();
 
         waitForStart();
+        sleep(500);
+
+        hardware.liftReset(this);
+        hardware.liftMotor.setTargetPosition(5285);
+        hardware.liftMotor.setPower(0.9);
+        hardware.waitBlockLift(this);
+        hardware.liftMotor.setPower(0);
+
 
 
 
@@ -94,21 +106,23 @@ public class AutoCraterPark extends LinearOpMode{
         hardware.waitBlock(this);
         hardware.MotorStop(this);
         hardware.EncooderReseeter(this);*/
-        hardware.EncooderReseeter(this);
-        hardware.Strafe(-3000, -0.5);
-        hardware.waitBlockStrafe(this);
-        hardware.StrafeStop();
+       hardware.strafeMotor.setPower(0.7);
+       sleep(400);
+       hardware.strafeMotor.setPower(0);
 
-        hardware.EncooderReseeter(this);
-        hardware.Turn(300, 0.5);
-        hardware.waitBlock(this);
-        hardware.MotorStop(this);
+       hardware.leftMotor.setPower(-0.9);
+       hardware.rightMotor.setPower(-0.9);
+       sleep(2700);
+       hardware.leftMotor.setPower(0);
+       hardware.rightMotor.setPower(0);
 
-        hardware.EncooderReseeter(this);
-        hardware.GoStraight(-3000, -1.0);
-        hardware.waitBlock(this);
-        hardware.MotorStop(this);
-        hardware.EncooderReseeter(this);
+        hardware.IDCServo.setPosition(0.05);
+        sleep(1500);
+        hardware.IDCServo.setPosition(0.5);
+
+
+
+
 
 
 
@@ -117,4 +131,6 @@ public class AutoCraterPark extends LinearOpMode{
 
 
     }
+
+
 }
